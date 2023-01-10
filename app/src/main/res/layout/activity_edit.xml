@@ -162,7 +162,8 @@
         android:layout_margin="36dp"
         android:clickable="true"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_baseline_edit_24"/>
 
     <androidx.constraintlayout.helper.widget.Layer
         android:id="@+id/birthdateLayer"
