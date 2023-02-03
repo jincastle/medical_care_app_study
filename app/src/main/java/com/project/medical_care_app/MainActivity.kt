@@ -2,8 +2,10 @@ package com.project.medical_care_app
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.isVisible
 import com.project.medical_care_app.databinding.ActivityMainBinding
@@ -22,7 +24,17 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, EditActivity::class.java)
             startActivity(intent)
         }
-        getDataUiUpdate()
+        binding.deleteButton.setOnClickListener(){
+            deleteDate()
+        }
+        binding.emergencyContactLayer.setOnClickListener{
+            val intent = with(Intent(Intent.ACTION_VIEW)){
+                val phoneNumber = binding.emergencyContactValueTextView.text.toString()
+                    .replace("-","")
+                data = Uri.parse("tel:$phoneNumber")
+                startActivity(this)
+            }
+        }
     }
 
     override fun onResume(){
@@ -51,5 +63,14 @@ class MainActivity : AppCompatActivity() {
                 binding.warningValueTextView.text = warning
             }
         }
+    }
+
+    private fun deleteDate(){
+        with(getSharedPreferences(USER_INFORMATION, MODE_PRIVATE).edit()){
+            clear()
+            apply()
+            getDataUiUpdate()
+        }
+        Toast.makeText(this, "초기화를 완료했습니다", Toast.LENGTH_SHORT).show()
     }
 }
